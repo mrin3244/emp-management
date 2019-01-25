@@ -1,0 +1,78 @@
+<!-- header -->
+{{>header}}
+<!-- /header -->
+    <!-- header-menu -->
+    {{>header-menu}}
+    <!-- /header-menu -->
+  
+    <!-- Left side column. contains the logo and sidebar menu -->
+    {{>side-menu-admin}}
+    <!-- /sidebar menu-->
+
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>Attendance</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Examples</a></li>
+        <li class="active">Attendance</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-8">
+            <!-- Default box -->
+            <div class="box">
+              <div class="box-header with-border">
+                <h3 class="box-title">Give Attendance</h3>
+
+              </div>
+              <div class="box-body">
+                <div class="login-box-body">
+                    <form action="attendance_submit" method="post">
+                        <input type="hidden" class="form-control" name="empId" value={{eid}}>
+                        <div class="form-group has-feedback">
+                            <label>Date</label>
+                            <input type="text" class="form-control" name="date" value={{date}} readonly>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label>Time</label>
+                            <input type="text" class="form-control" name="time" value="{{time}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="utypeid">
+                                <option value="in">Check-In</option>
+                                <option value="out">Check-Out</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-8">
+                            
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+      </div>
+      
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<!--footer -->
+{{>footer}}
+<!--/footer -->

@@ -1,0 +1,23 @@
+{
+  "name": "emp-management",
+  "version": "1.0.0",
+  "description": "employee management system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "handlebars-dateformat": "^1.1.1",
+    "joi": "^14.3.1",
+    "joi-date-extensions": "^1.2.0",
+    "mongodb": "^3.1.12",
+    "node-datetime": "^2.1.2"
+  }
+}

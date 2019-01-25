@@ -1,0 +1,74 @@
+<!-- header -->
+{{>header}}
+<!-- /header -->
+    <!-- header-menu -->
+    {{>header-menu}}
+    <!-- /header-menu -->
+  
+    <!-- Left side column. contains the logo and sidebar menu -->
+    {{>side-menu-admin}}
+    <!-- /sidebar menu-->
+
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>Employee Details</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Examples</a></li>
+        <li class="active">View One</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+          <div class="col-md-6">
+              <div class="box">
+                <div class="box-header">
+                <h3 class="box-title">Employee Details</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fild Name</th>
+                                <th>Value</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Name</td><td>{{employee.name}}</td></tr>
+                            <tr><td>Email</td><td>{{employee.email}}</td></tr>
+                            <tr><td>Date of Birtd</td><td>{{employee.dob}}</td></tr>
+                            <tr><td>Job Title</td><td>{{employee.jobtitle}}</td></tr>
+                            <tr><td>Phone</td><td>{{employee.phone}}</td></tr>
+                            <tr><td>Address</td><td>{{employee.address}}</td></tr>
+                            <tr><td>Language known</td><td>{{#employee.language}}<span>{{this}} </span>{{/employee.language}}</td></tr>
+                            <tr><td>Sex</td><td>{{employee.sex}}</td></tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td><a class="btn btn-warning pull-right" href="/home/edit/{{employee._id}}">Edit</a></td>
+                                <td><a class="btn btn-danger" href="/home/delete/{{employee._id}}">Delete</a></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+      </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<!--footer -->
+{{>footer}}
+<!--/footer -->
