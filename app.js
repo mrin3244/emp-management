@@ -20,6 +20,7 @@ module.exports = function(dbs, hb){
     const attendanceRoutes = require('./api/routes/attendance')(dbs);
 
     app.use(express.static(__dirname + '/views/public'));
+    
 
     // get input from body
     app.use(bodyparser.urlencoded({extended:false}));
