@@ -15,6 +15,9 @@ module.exports = function(dbs, hb){
 
     const bodyparser = require('body-parser');
 
+
+
+    
     const loginRoutes = require('./api/routes/login')(dbs);
     const homeRoutes = require('./api/routes/home')(dbs);
     const attendanceRoutes = require('./api/routes/attendance')(dbs);
