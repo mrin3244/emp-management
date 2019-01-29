@@ -34,29 +34,51 @@
               </div>
               <div class="box-body">
                 <div class="login-box-body">
-                    <form action="attendance_submit" method="post">
-                        <input type="hidden" class="form-control" name="empId" value={{eid}}>
+                    <form action="/attendance/attendance_submit" method="post">
                         <div class="form-group has-feedback">
-                            <label>Date</label>
-                            <input type="text" class="form-control" name="date" value={{date}} readonly>
+                            <label>Date : </label>
+                            <label>{{date}}</label>
                         </div>
                         <div class="form-group has-feedback">
-                            <label>Time</label>
-                            <input type="text" class="form-control" name="time" value="{{time}}" readonly>
+                            <label>Time : </label>
+                            <label>{{time}}</label>
                         </div>
-                        <div class="form-group">
-                            <select class="form-control" name="utypeid">
-                                <option value="in">Check-In</option>
-                                <option value="out">Check-Out</option>
-                            </select>
-                        </div>
+                        {{#if checkin}}
+                          <div class="form-group has-feedback">
+                              <label>Check In : </label> <label>{{checkin}}</label></br>
+                              {{#if checkout}}
+                                <label>Check Out : </label> <label>{{checkout}}</label>
+                              {{/if}}
+                          </div>
+                        {{/if}}
+
+                        {{#if checkin}}
+                            {{#if checkout}}
+                              <!-- nothing to display -->
+                            {{else}}
+                                <div class="form-group">
+                                  <select class="form-control" name="checkoption">
+                                    <option value="out">Check-Out</option>
+                                  </select>
+                                </div>
+                            {{/if}}
+                        {{else}}
+                            <div class="form-group">
+                                <select class="form-control" name="checkoption">
+                                  <option value="in">Check-In</option>
+                                </select>
+                            </div>
+                        {{/if}}
                         <div class="row">
                             <div class="col-xs-8">
                             
                             </div>
                             <!-- /.col -->
                             <div class="col-xs-4">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+                            {{#if checkout}}
+                              {{else}}
+                                <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+                            {{/if}}
                             </div>
                             <!-- /.col -->
                         </div>

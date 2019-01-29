@@ -1,6 +1,5 @@
 const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
-//const jwt = require('jsonwebtoken');
 var sess = "";
 
 
@@ -21,6 +20,7 @@ module.exports = function(dbs){
                     return res.redirect('/err?message='+err);  
                 }
                 if(result){
+                    sess.empdata = docs;
                     sess.eid=docs[0]._id;
                     sess.utypeid=docs[0].utypeid;
                     res.redirect('/home');

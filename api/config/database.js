@@ -11,6 +11,6 @@ module.exports = function(callback){
             db = database;
             console.log('database connected');
         }
-        callback(err, db);
+        callback(err, db); //return the err or dbConnection
     });
 }

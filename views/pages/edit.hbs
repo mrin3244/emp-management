@@ -48,10 +48,10 @@
                             <input type="text" name="email" value="{{employee.email}}" class="form-control" placeholder="Enter ...">
                         </div>
                         <!-- password -->
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label>Password</label>
                             <input type="password" name="password" value="{{employee.password}}" class="form-control" placeholder="Enter ...">
-                        </div>
+                        </div> -->
                         <!-- Date of Birth -->
                         <div class="form-group">
                             <label>Date of Birth</label>
@@ -85,18 +85,18 @@
                         <div class="form-group">
                             <label>Language known</label>
                             <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="language" value="English" >
-                                English
-                            </label>
-                            <label>
-                                <input type="checkbox" name="language" value="Hindi">
-                                Hindi
-                            </label>
-                            <label>
-                                <input type="checkbox" name="language" value="Bengali">
-                                Bengali
-                            </label>
+                                <label>
+                                    <input type="checkbox" name="language" value="English" {{#employee.language}}{{#ifEq this "English"}} checked {{/ifEq}}{{/employee.language}}>
+                                    English
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="language" value="Hindi" {{#employee.language}}{{#ifEq this "Hindi"}} checked {{/ifEq}}{{/employee.language}}>
+                                    Hindi
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="language" value="Bengali" {{#employee.language}}{{#ifEq this "Bengali"}} checked {{/ifEq}}{{/employee.language}}>
+                                    Bengali
+                                </label>
                             </div>
                         </div>
 

@@ -1,0 +1,70 @@
+<!-- header -->
+{{>header}}
+<!-- /header -->
+    <!-- header-menu -->
+    {{>header-menu}}
+    <!-- /header-menu -->
+  
+    <!-- Left side column. contains the logo and sidebar menu -->
+    {{>side-menu-admin}}
+    <!-- /sidebar menu-->
+
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>Attendance History</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Attendance</a></li>
+        <li class="active">Attendance History</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+          <div class="col-md-6">
+              <div class="box">
+                <div class="box-header">
+                <h3 class="box-title">Employee Attendance History</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Ckeck In</th>
+                                <th>Ckeck Out</th>
+                                <th>Working Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#history}}
+                            <tr>
+                                <td>{{this.days}}</td>
+                                <td>{{this.intime}}</td>
+                                <td>{{this.outtime}}</td>
+                                <td>{{#ifEq this.workhours "Invalid date"}}in office {{else}}{{this.workhours}}{{/ifEq}}</td>
+                            </tr>
+                            {{/history}}
+                        </tbody>
+                        
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+      </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<!--footer -->
+{{>footer}}
+<!--/footer -->

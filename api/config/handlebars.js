@@ -10,6 +10,7 @@ const hb = handlebars({
     partialsDir: path + "partial",
 
     helpers: {
+        // create function for hbs page
         ifEq: function (v1, v2, options) {
             if (v1 === v2) {
                 return options.fn(this);

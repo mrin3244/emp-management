@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
+
+// create session
 var session = require('express-session');
 app.use(session({ secret: 'secret-key', resave: true, saveUninitialized: true }));
 
 module.exports = function(dbs, hb){
+    // initial the handelbars object in hbs
     app.engine('hbs', hb);
+    // set the view engine
     app.set("view engine", "hbs");
     
     //hb.registerHelper('dateFormat', require('handlebars-dateformat'));
@@ -13,6 +17,7 @@ module.exports = function(dbs, hb){
 
     const loginRoutes = require('./api/routes/login')(dbs);
     const homeRoutes = require('./api/routes/home')(dbs);
+    const attendanceRoutes = require('./api/routes/attendance')(dbs);
 
     app.use(express.static(__dirname + '/views/public'));
 
@@ -23,6 +28,7 @@ module.exports = function(dbs, hb){
     // Routes which should handel request
     app.use('/login', loginRoutes);
     app.use('/home', homeRoutes);
+    app.use('/attendance', attendanceRoutes);
 
     app.get('/', (req, res, next) => {
         res.render('pages/login');
@@ -41,7 +47,7 @@ module.exports = function(dbs, hb){
         req.session.destroy();
         res.redirect('/');
     });
-
+    // for all other link
     app.get('/*', (req, res) => {
         res.render('error');
     });
