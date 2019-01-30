@@ -36,7 +36,7 @@ module.exports = function(dbs){
                         message: err
                     });
                 }
-                var attendanceRate = (empinoffice * 100)/totalemp;
+                var attendanceRate = Math.floor((empinoffice * 100)/totalemp);
                 return res.render('pages/home', {
                     eid:sess.eid, 
                     utypeid:sess.utypeid,
