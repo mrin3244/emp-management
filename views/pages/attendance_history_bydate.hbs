@@ -29,43 +29,10 @@
           <div class="col-md-8">
               <div class="box">
                 <div class="box-header">
-                <h3 class="box-title">Employee Attendance History</h3>
+                <h3 class="box-title">Employee Attendance History form {{start}} to {{end}}</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div>
-                        <table>
-                            <form role="form" action="/attendance/historybydate/{{empId}}" method="POST">
-                            <tr>
-                                <td><label>Start Date</label></td>
-                                <td><label>End Date</label></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input type="text" name="startDate" class="form-control pull-right" id="datepicker1" autocomplete="off">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input type="text" name="endDate" class="form-control pull-right" id="datepicker2" autocomplete="off">
-                                    </div>
-                                </td>
-                                <td>
-                                    <button type="submit" class="btn btn-info pull-right">Submit</button>
-                                </td>
-                            </tr>
-                            </form>
-                        </table>
-                    </div>
-                    <h3 class="box-title">Employee Attendance History for this months</h3>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>

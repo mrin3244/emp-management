@@ -27,7 +27,8 @@ module.exports = function(dbs){
                     return res.render('pages/500', {
                         eid:sess.eid, 
                         utypeid:sess.utypeid,
-                        ename: sess.empdata[0].name, 
+                        ename: sess.empdata[0].name,
+                        imgname: sess.empdata[0].imgname, 
                         message: err
                     });
                 }
@@ -38,6 +39,7 @@ module.exports = function(dbs){
                         eid:sess.eid, 
                         utypeid:sess.utypeid,
                         ename: sess.empdata[0].name,
+                        imgname: sess.empdata[0].imgname,
                         checkin: doc.checkin,
                         checkout : doc.checkout
                     });
@@ -47,7 +49,8 @@ module.exports = function(dbs){
                         time: time, 
                         eid:sess.eid, 
                         utypeid:sess.utypeid,
-                        ename: sess.empdata[0].name
+                        ename: sess.empdata[0].name,
+                        imgname: sess.empdata[0].imgname
                     });
                 }
             });
@@ -78,7 +81,8 @@ module.exports = function(dbs){
                         return res.render('pages/500', {
                             eid:sess.eid, 
                             utypeid:sess.utypeid,
-                            ename: sess.empdata[0].name, 
+                            ename: sess.empdata[0].name,
+                            imgname: sess.empdata[0].imgname, 
                             message: err
                         });
                     }
@@ -102,7 +106,8 @@ module.exports = function(dbs){
                         return res.render('pages/500', {
                             eid:sess.eid, 
                             utypeid:sess.utypeid,
-                            ename: sess.empdata[0].name, 
+                            ename: sess.empdata[0].name,
+                            imgname: sess.empdata[0].imgname, 
                             message: err
                         });
                     }
@@ -131,6 +136,7 @@ module.exports = function(dbs){
                         eid:sess.eid, 
                         utypeid:sess.utypeid,
                         ename: sess.empdata[0].name, 
+                        imgname: sess.empdata[0].imgname,
                         message: err
                     });
                 } 
@@ -157,6 +163,66 @@ module.exports = function(dbs){
                         eid:sess.eid, 
                         utypeid:sess.utypeid,
                         ename: sess.empdata[0].name,
+                        imgname: sess.empdata[0].imgname,
+                        empId:empid,
+                        history: history
+                    });
+                }
+            });
+            
+        }
+        else{
+            return res.redirect('/err?message=Auth failed');
+        }
+
+    });
+
+    // find a particular employee history for a given date
+    router.post('/historybydate/:empid', (req, res, next) => {
+        sess = req.session;
+        const empid = mongodb.ObjectID(req.params.empid);
+        if(sess.eid){
+            var date = new Date();
+            var start = new Date(req.body.startDate);
+            start.setHours(0,0,0,0);
+            var end = new Date(req.body.endDate);
+            end.setHours(23,59,59,999);
+            dbs.collection('attendance').find({"empid":empid, "checkin": {$gte: start, $lt: end}}).toArray(function( err, docs){
+                if(err){
+                    return res.render('pages/500', {
+                        eid:sess.eid, 
+                        utypeid:sess.utypeid,
+                        ename: sess.empdata[0].name, 
+                        imgname: sess.empdata[0].imgname,
+                        message: err
+                    });
+                } 
+                if(docs){
+                    //console.log(docs);
+                    var days;
+                    var intime;
+                    var outtime;
+                    var workhours;
+                    var history=[];
+                    var employee=[];
+                    for(i=0; i<docs.length; i++){
+                        days = moment(docs[i].checkin).format('DD/MM/YYYY');
+                        intime = moment(docs[i].checkin).format('HH:mm:ss');
+                        outtime = moment(docs[i].checkout).format('HH:mm:ss')
+                        workhours = moment.utc(moment(docs[i].checkout,"DD/MM/YYYY HH:mm:ss").diff(moment(docs[i].checkin,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")
+                        employee={days:days,intime: intime, outtime: outtime, workhours: workhours}
+                       history.push(employee);
+                    }
+                    
+                     //console.log(history);
+                    
+                    return res.render('pages/attendance_history_bydate', {
+                        eid:sess.eid, 
+                        utypeid:sess.utypeid,
+                        ename: sess.empdata[0].name,
+                        imgname: sess.empdata[0].imgname,
+                        start:moment(start).format('DD/MM/YYYY'),
+                        end:moment(end).format('DD/MM/YYYY'),
                         history: history
                     });
                 }

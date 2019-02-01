@@ -36,7 +36,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <form role="form" action="/home/editempvalue" method="POST">
-                        <input type="hidden" name="empId" value="{{employee._id}}" />
+                        <input type="text" name="empId" value="{{employee._id}}" />
                         <!-- Name -->
                         <div class="form-group">
                             <label>Name</label>
@@ -48,10 +48,10 @@
                             <input type="text" name="email" value="{{employee.email}}" class="form-control" placeholder="Enter ...">
                         </div>
                         <!-- password -->
-                        <!--<div class="form-group">
+                        <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" value="{{employee.password}}" class="form-control" placeholder="Enter ...">
-                        </div> -->
+                            <input type="password" name="password" value="" class="form-control" placeholder="Enter ...">
+                        </div>
                         <!-- Date of Birth -->
                         <div class="form-group">
                             <label>Date of Birth</label>

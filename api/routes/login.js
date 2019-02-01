@@ -19,7 +19,10 @@ module.exports = function(dbs){
                 if(err){
                     return res.redirect('/err?message='+err);  
                 }
-                if(result){
+                if(result == false){
+                    return res.redirect('/err?message=Wrong Password');
+                }
+                if(result == true){
                     sess.empdata = docs;
                     sess.eid=docs[0]._id;
                     sess.utypeid=docs[0].utypeid;

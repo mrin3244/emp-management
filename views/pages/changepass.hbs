@@ -14,10 +14,10 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Upload</h1>
+      <h1>Change Password</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Upload</li>
+        <li class="active">Change Password</li>
       </ol>
     </section>
 
@@ -28,21 +28,21 @@
             <!-- Default box -->
             <div class="box">
               <div class="box-header with-border">
-                <h3 class="box-title">Upload Image</h3>
+                <h3 class="box-title">Change Password</h3>
               </div>
               <div class="box-body">
-                <form action="/upload/uploadfile" enctype="multipart/form-data" method="post">
-                    <div>
-                        <img id="output" src="/images/{{imgname}}" class="user-image" width="100" height="100"/>
-                        <script>
-                          var loadFile = function(event) {
-                            var output = document.getElementById('output');
-                            output.src = URL.createObjectURL(event.target.files[0]);
-                          };
-                        </script>
+                <form action="/home/changepass" method="post">
+                    <div class="form-group">
+                        <label>Old Password</label>
+                        <input type="password" class="form-control" name="oldpassword">
+                    </div>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" class="form-control" name="password">
                     </div>
                     <div class="form-group has-feedback">
-                        <input type="file" class="form-control" name="imgUploader"  onchange="loadFile(event)">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" name="confirmPassword">
                     </div>
                     <div class="row">
                         <div class="col-xs-8">
@@ -50,7 +50,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Upload</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -58,7 +58,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                ** Only .jpg and .png images are allowed
+                ** new password and confrim password must be same
               </div>
               <!-- /.box-footer-->
             </div>

@@ -1,4 +1,5 @@
 const express = require('express');
+const mongodb = require('mongodb');
 var multer = require('multer');
 var path = require('path'); //to get ext from file
 
@@ -12,7 +13,8 @@ module.exports = function(dbs){
             return res.render('pages/upload', {
                 eid:sess.eid, 
                 utypeid:sess.utypeid,
-                ename: sess.empdata[0].name
+                ename: sess.empdata[0].name,
+                imgname: sess.empdata[0].imgname
             });
 
         }
@@ -31,7 +33,7 @@ module.exports = function(dbs){
                 },
                 filename: function(req, file, callback) {
                     var ext = path.extname(file.originalname);
-                    callback(null, sess.eid + "_" + Date.now() + ext);
+                    callback(null, sess.eid + ext);
                 }
             });
 
@@ -39,7 +41,7 @@ module.exports = function(dbs){
                 storage: Storage,
                 fileFilter: function (req, file, callback) {
                     var ext = path.extname(file.originalname);
-                    if(ext !== '.png' && ext !== '.jpg') {
+                    if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
                         return callback(new Error('Only images are allowed'))
                     }
                     callback(null, true)
@@ -51,10 +53,31 @@ module.exports = function(dbs){
             upload(req, res, function(err) {
                 if (err) {
                     //console.log(err);
-                    return res.end("Something went wrong!");
+                    return res.render('pages/500', {
+                        eid:sess.eid, 
+                        utypeid:sess.utypeid,
+                        ename: sess.empdata[0].name,
+                        imgname: sess.empdata[0].imgname, 
+                        message: err
+                    });
                 }
-                console.log(req.file.path);
-                return res.end("File uploaded sucessfully!.");
+                //console.log(req.file);
+                const empId = mongodb.ObjectID(sess.eid);
+                dbs.collection('employee').findOneAndUpdate({"_id":empId}, {$set: {"imgname":req.file.filename}}, function(err,result){
+                    if(result){
+                        return res.redirect('/home');
+                        //return res.status(200).json({"message":"update account "+eId});
+                    } 
+                    if(err){
+                        return res.render('pages/500', {
+                            eid:sess.eid, 
+                            utypeid:sess.utypeid,
+                            ename: sess.empdata[0].name,
+                            imgname: sess.empdata[0].imgname, 
+                            message: err
+                        });
+                    }
+                });
             });
             
         }
