@@ -22,6 +22,7 @@ module.exports = function(dbs, hb){
     const homeRoutes = require('./api/routes/home')(dbs);
     const attendanceRoutes = require('./api/routes/attendance')(dbs);
     const fileUploadRoutes = require('./api/routes/fileupload')(dbs);
+    const rulesRoutes = require('./api/routes/rules')(dbs);
 
     app.use(express.static(__dirname + '/views/public'));
     
@@ -35,6 +36,7 @@ module.exports = function(dbs, hb){
     app.use('/home', homeRoutes);
     app.use('/attendance', attendanceRoutes);
     app.use('/upload', fileUploadRoutes);
+    app.use('/rules', rulesRoutes);
 
     app.get('/', (req, res, next) => {
         res.render('pages/login');
