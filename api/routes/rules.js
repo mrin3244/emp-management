@@ -51,6 +51,8 @@ module.exports = function(dbs){
         }
 
     });
+
+
     router.post('/set', (req, res, next) => {
         sess = req.session;
         if(sess.utypeid=='1'){
@@ -117,6 +119,7 @@ module.exports = function(dbs){
 
     });
 
+    //edit rule
     router.get('/edit/:ruleId', (req, res, next) => {
         sess = req.session;
         if(sess.utypeid=='1'){

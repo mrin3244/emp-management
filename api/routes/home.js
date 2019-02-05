@@ -352,6 +352,8 @@ module.exports = function(dbs){
         
     });
 
+
+    
     // change password view
     router.get('/changepass', (req, res, next) => {
         sess = req.session;
