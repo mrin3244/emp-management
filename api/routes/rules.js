@@ -8,56 +8,8 @@ module.exports = function(dbs){
     router.get('/', (req, res, next) => {
         sess = req.session;
         if(sess.utypeid=='1'){
-            dbs.collection('rules').find().toArray(function(err, docs){
-                if(err){
-                    return res.render('pages/500', {
-                        eid:sess.eid, 
-                        utypeid:sess.utypeid,
-                        ename: sess.empdata[0].name,
-                        imgname: sess.empdata[0].imgname, 
-                        message: err
-                    }); 
-                }
-                if(docs){
-                    //console.log(docs);
-                    return res.render('pages/rules_view', {
-                        eid:sess.eid, 
-                        utypeid:sess.utypeid,
-                        ename: sess.empdata[0].name,
-                        imgname: sess.empdata[0].imgname,
-                        rules: docs
-                    });
-                }
-            });
-        }
-        else{
-            return res.redirect('/err?message=Auth failed');
-        }
-
-    });
-
-    router.get('/set', (req, res, next) => {
-        sess = req.session;
-        if(sess.utypeid=='1'){
-            return res.render('pages/rules_set', {
-                eid:sess.eid, 
-                utypeid:sess.utypeid,
-                ename: sess.empdata[0].name,
-                imgname: sess.empdata[0].imgname
-            });
-        }
-        else{
-            return res.redirect('/err?message=Auth failed');
-        }
-
-    });
-
-
-    router.post('/set', (req, res, next) => {
-        sess = req.session;
-        if(sess.utypeid=='1'){
-            var rulename = req.body.rulename;
-            dbs.collection('rules').findOne({"rulename":rulename}, function(err, doc){
+            const adminId = mongodb.ObjectID(sess.eid);
+            dbs.collection('rules').findOne({"adminId":adminId}, function(err, doc){
                 if(err){
                     return res.render('pages/500', {
                         eid:sess.eid, 
@@ -68,49 +20,23 @@ module.exports = function(dbs){
                     });
                 }
                 if(doc){
-                    return res.render('pages/500', {
+                    return res.render('pages/rules_view', {
                         eid:sess.eid, 
                         utypeid:sess.utypeid,
                         ename: sess.empdata[0].name,
-                        imgname: sess.empdata[0].imgname, 
-                        message: "Rules already exists"
+                        imgname: sess.empdata[0].imgname,
+                        rule: doc
                     });
                 }
                 else{
-                    const schema = Joi.object().keys({
-                        rulename: Joi.string().required(),
-                        rulevalue: Joi.string().required()
+                    return res.render('pages/rules_view', {
+                        eid:sess.eid, 
+                        utypeid:sess.utypeid,
+                        ename: sess.empdata[0].name,
+                        imgname: sess.empdata[0].imgname
                     });
-                    Joi.validate(req.body, schema, (err, result) => {
-                        if(err){
-                            return res.render('pages/500', {
-                                eid:sess.eid, 
-                                utypeid:sess.utypeid,
-                                ename: sess.empdata[0].name,
-                                imgname: sess.empdata[0].imgname, 
-                                message: err
-                            });
-                        }
-                        if(result){
-                            dbs.collection('rules').insertOne(result, function(err,result){
-                                if(err){
-                                    return res.render('pages/500', {
-                                        eid:sess.eid, 
-                                        utypeid:sess.utypeid,
-                                        ename: sess.empdata[0].name,
-                                        imgname: sess.empdata[0].imgname, 
-                                        message: err
-                                    });
-                                }
-                                if(result){
-                                    return res.redirect('/rules');
-                                } 
-
-                            });
-                        }
-                    });
-
                 }
+
             });
         }
         else{
@@ -119,12 +45,13 @@ module.exports = function(dbs){
 
     });
 
-    //edit rule
-    router.get('/edit/:ruleId', (req, res, next) => {
+    //Add new if not find any or edit old rule
+    router.get('/set', (req, res, next) => {
         sess = req.session;
         if(sess.utypeid=='1'){
-            const ruleId = mongodb.ObjectID(req.params.ruleId);
-            dbs.collection('rules').findOne({"_id":ruleId}, function(err, doc){
+            const adminId = mongodb.ObjectID(sess.eid);
+            //console.log(adminId);
+            dbs.collection('rules').findOne({"adminId":adminId}, function(err, doc){
                 if(err){
                     return res.render('pages/500', {
                         eid:sess.eid, 
@@ -144,6 +71,14 @@ module.exports = function(dbs){
                         rule: doc
                     });
                 }
+                else{
+                    return res.render('pages/rules_edit', {
+                        eid:sess.eid, 
+                        utypeid:sess.utypeid,
+                        ename: sess.empdata[0].name,
+                        imgname: sess.empdata[0].imgname
+                    });
+                }
 
             });
         }
@@ -156,11 +91,10 @@ module.exports = function(dbs){
     router.post('/edit', (req, res, next) => {
         sess = req.session;
         if(sess.utypeid=='1'){
-            const ruleId = mongodb.ObjectID(req.body.ruleId);
-            delete req.body.ruleId;
-            delete req.body.rulename;
+            const adminId = mongodb.ObjectID(sess.eid);
             const schema = Joi.object().keys({
-                rulevalue: Joi.string().required()
+                starttime: Joi.string().required(),
+                endtime: Joi.string().required()
             });
             
             Joi.validate(req.body, schema, (err, result) => {
@@ -174,7 +108,7 @@ module.exports = function(dbs){
                     });
                 }
                 if(result){
-                    dbs.collection('rules').findOneAndUpdate({"_id":ruleId}, {$set: result}, function(err,result){
+                    dbs.collection('rules').findOneAndUpdate({"adminId":adminId}, {$set: result}, { upsert: true }, function(err,result){
                         if(err){
                             return res.render('pages/500', {
                                 eid:sess.eid, 

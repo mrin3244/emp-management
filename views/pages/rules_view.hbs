@@ -17,7 +17,7 @@
       <h1>Rules</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Edit Rules</li>
+        <li class="active">Rules</li>
       </ol>
     </section>
 
@@ -28,7 +28,7 @@
             <!-- Default box -->
             <div class="box">
               <div class="box-header with-border">
-                <h3 class="box-title">Edit Rules</h3>
+                <h3 class="box-title">Rules</h3>
               </div>
               <div class="box-body">
                 <table id="employeeTable" class="table table-bordered table-striped">
@@ -41,14 +41,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each rules}}
+                            {{!-- {{#each rules}} --}}
                             <tr>
-                                <td>{{this.rulename}}</td>
-                                <td>{{this.rulevalue}}</td>
-                                <td><a class="btn btn-warning btn-sm" href="/rules/edit/{{this._id}}">Edit</a></td>
-                                <td><a class="btn btn-danger btn-sm" href="/rules/delete/{{this._id}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a></td>
+                                <td>Start Time</td>
+                                <td>{{rule.starttime}}</td>
                             </tr>
-                            {{/each}}
+                            <tr>
+                              <td>End Time</td>
+                                <td>{{rule.endtime}}</td>
+                            </tr>
+                            <tr>
+                                <td><a class="btn btn-warning btn-sm" href="/rules/set">Edit</a></td>
+                                <td></td>
+                            </tr>
+                            {{!-- {{/each}} --}}
                         </tbody>
                     </table>
               </div>
