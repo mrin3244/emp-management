@@ -352,8 +352,6 @@ module.exports = function(dbs){
         
     });
 
-    
-
 
 
     // change password view
