@@ -38,7 +38,9 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Ckeck In</th>
+                                <th>Check In status</th>
                                 <th>Ckeck Out</th>
+                                <th>Check Out status</th>
                                 <th>Working Hours</th>
                             </tr>
                         </thead>
@@ -47,7 +49,9 @@
                             <tr>
                                 <td>{{this.days}}</td>
                                 <td>{{this.intime}}</td>
+                                <td>{{this.instatus}} {{this.intimediff}}</td>
                                 <td>{{this.outtime}}</td>
+                                <td>{{this.outstatus}} {{this.outtimediff}}</td>
                                 <td>{{#ifEq this.workhours "Invalid date"}}in office {{else}}{{this.workhours}}{{/ifEq}}</td>
                             </tr>
                             {{/history}}

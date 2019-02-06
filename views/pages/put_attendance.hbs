@@ -46,10 +46,15 @@
                         {{#if checkin}}
                           <div class="form-group has-feedback">
                               <label>Check In : </label> <label>{{checkin}}</label></br>
-                              {{#if checkout}}
-                                <label>Check Out : </label> <label>{{checkout}}</label>
-                              {{/if}}
+                              <label>You are {{intimediff}} {{instatus}} for work</label>
                           </div>
+                          {{#if checkout}}
+                            <div class="form-group has-feedback">
+                              <label>Check Out : </label> <label>{{checkout}}</label></br>
+                              <label>You are {{outtimediff}} {{outstatus}} to work</label>
+                            </div> 
+                          {{/if}}
+                          
                         {{/if}}
 
                         {{#if checkin}}
