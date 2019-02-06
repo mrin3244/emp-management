@@ -105,9 +105,9 @@ module.exports = function(dbs){
                     var endtime = doc.endtime;
                     // for insert new day data
                     if(req.body.checkoption=="in"){
-                        console.log(starttime);
+                        //console.log(starttime);
                         var starttime = moment(starttime, 'hh:mm A');
-                        console.log(starttime);
+                        //console.log(starttime);
                         var intimediff = '';
                         var instatus = '';
                         var checkin = new Date();
@@ -118,14 +118,14 @@ module.exports = function(dbs){
                             intimediff = moment.utc(moment(checkin,"DD/MM/YYYY HH:mm:ss").diff(moment(starttime,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss");
                             instatus = 'late';
                         }
-                        console.log('you are '+ instatus +' at time '+ intimediff);
+                        //console.log('you are '+ instatus +' at time '+ intimediff);
                         const dataset = {
                             empid: eid,
                             checkin: checkin,
                             intimediff: intimediff,
                             instatus: instatus
                         };
-                        console.log(dataset);
+                        //console.log(dataset);
                         dbs.collection('attendance').insertOne(dataset, function(err,result){
                             if(result){
                                 return res.redirect('/home');
